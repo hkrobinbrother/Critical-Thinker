@@ -62,7 +62,28 @@ class LinkList {
         this.length++;
     }
 
-    remove() { }
+    remove(index) {
+        if (index === 0) {
+            const removedItem = this.head.value;
+            this.head = this.head.next;
+
+            if (this.length === 1) {
+                this.tail = null;
+            }
+
+            this.length--
+            return removedItem;
+        }
+        const leadingNode = this._traverseToIndex(index - 1);
+        const nodeRemoveNode = leadingNode.next;
+
+        leadingNode.next = nodeRemoveNode.next;
+
+        if (leadingNode.next === null) {
+            this.tail = leadingNode;
+        }
+        return nodeRemoveNode.value;
+    }
     _traverseToIndex(index) {
         let count = 0;
 
@@ -91,11 +112,12 @@ class LinkList {
 const linkList = new LinkList()
 
 
-// linkList.append(1)
-// linkList.append(2)
-// linkList.append(3)
-linkList.append(1).append(2).append(3)
-linkList.insert(2,200)
-linkList.print(
-
-)
+linkList.append(1)
+linkList.append(2)
+linkList.append(3)
+// linkList.append(1).append(2).append(3)
+linkList.insert(2, 200)
+linkList.remove(2)
+linkList.remove(1)
+linkList.remove(3)
+linkList.print()
